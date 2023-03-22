@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block title %}
+    Поиск СНИЛС
+{% endblock %}
+
+{% block body %}
+    <div class="cont">
+        <form method="post" class="serial_number_form">
+            {{ form.csrf_token }}
+
+            {% set field = form.serial_number %}
+            {{ field.label() }}
+            <div>
+                {{ field() }}
+                {{ form.submit() }}
+            </div>
+        </form>
+        {% for cat, msg in get_flashed_messages(True) %}
+            <div class="flash {{ cat }}">{{ msg }}</div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/serial_number_validate.js') }}"></script>
+{% endblock %}
+{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}
