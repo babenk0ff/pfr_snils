@@ -2,7 +2,8 @@
 
 {% block styles %}
     <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+          href="{{ url_for('static', filename='css/style.css') }}"
+    >
 {% endblock %}
 
 {% block title %}
@@ -11,19 +12,47 @@
 
 {% block body %}
     <div class="cont">
-        <form method="post" class="serial_number_form">
+        <form method="post" class="form_serial_number">
             {{ form.csrf_token }}
 
             {% set field = form.serial_number %}
-            {{ field.label() }}
-            <div>
+            {{ field.label(class_='form_serial_number_label') }}
+            <div class="input_group">
                 {{ field() }}
                 {{ form.submit() }}
+            </div>
+        </form>
+        <form method="post"
+              class="form_upload"
+              action="{{ url_for('serial_number.upload') }}"
+              enctype="multipart/form-data"
+        >
+            {{ form.csrf_token }}
+            <div class="form_label">Проверка номеров из файла</div>
+            <div class="input_group">
+                <input type="file" name="file" accept=".txt" required>
+                <input type="submit" value="Отправить">
             </div>
         </form>
         {% for cat, msg in get_flashed_messages(True) %}
             <div class="flash {{ cat }}">{{ msg }}</div>
         {% endfor %}
+
+        {% if numbers %}
+            <div class="checked_list">
+                {% for number in numbers %}
+                    {% if number.result == 'НАЙДЕН' %}
+                        {% set cls = 'list_el_success' %}
+                    {% elif number.result == 'ОТСУТСТВУЕТ' %}
+                        {% set cls = 'list_el_error' %}
+                    {% elif number.result == 'НЕВЕРЕН' %}
+                        {% set cls = 'list_el_warning' %}
+                    {% endif %}
+                    <p class="list_el {{ cls }}">{{ number.number }}
+                        - {{ number.result }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 
 {% endblock %}
@@ -32,4 +61,3 @@
     {{ super() }}
     <script src="{{ url_for('static', filename='js/serial_number_validate.js') }}"></script>
 {% endblock %}
-{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}

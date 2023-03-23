@@ -2,34 +2,75 @@ html, body {
     height: 100%;
     width: 100%;
     margin: 0;
+    font-family: system-ui;
 }
 
 .cont {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    max-width: 578px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
-.serial_number_form {
-    margin: 10px auto;
-    border-radius: 5px;
+form {
     background-color: #f2f2f2;
     padding: 20px;
 }
 
+.form_serial_number {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    border-radius: 5px 5px 0 0;
+
+}
+
+.form_serial_number_label {
+    margin-bottom: 15px;
+}
+
+.input_group {
+    display: flex;
+    margin-bottom: 5px;
+}
+
 input[type=text] {
-    display: inline-block;
+    flex: 1;
+    padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    margin: 8px 0;
+    font-size: initial;
+}
+
+input[type=submit] {
+    padding: 0 15px;
+    margin-left: 10px;
+    font-size: initial;
+}
+
+.form_upload {
+    border-radius: 0 0 5px 5px;
+}
+
+.form_label {
+    margin-bottom: 15px;
+}
+
+input[type=file] {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: initial;
 }
 
 .flash {
     padding: 10px;
-    width: 100%;
+    max-width: 100%;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .flash.error {
@@ -45,4 +86,43 @@ input[type=text] {
 .invalid {
     color: #d8000c;
     font-size: small;
+}
+
+.form_upload {
+    margin-bottom: 10px;
+}
+
+.checked_list_wrapper {
+    display: flex;
+    height: 100%;
+    flex-flow: column;
+}
+
+.checked_list {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow-y: scroll;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+}
+
+.list_el {
+    margin: 0;
+    padding: 10px 10px;
+}
+
+.list_el_success {
+    background-color: #dff2bf;
+}
+
+.list_el_error {
+    background-color: #ffbaba;
+}
+
+.list_el_warning {
+    background-color: #feefb3;
 }
