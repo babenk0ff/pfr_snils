@@ -1,3 +1,6 @@
+import re
+
+
 def calc_checksum(num_string: str) -> str:
     digits_sum = 0
     for i, digit in enumerate(num_string[::-1]):
@@ -13,6 +16,9 @@ def calc_checksum(num_string: str) -> str:
 
 
 def validate(number: str):
-    checksum = number[-2:]
-    number_only = number[:-2].strip().replace('-', '')
-    return checksum == calc_checksum(number_only)
+    pattern = r'^\d{3}-\d{3}-\d{3}\s\d{2}$'
+    if re.fullmatch(pattern, re.sub(r'\n|\r', '', number)):
+        checksum = number[-2:]
+        number_only = number[:-2].strip().replace('-', '')
+        return checksum == calc_checksum(number_only)
+    return False
